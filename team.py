@@ -30,8 +30,11 @@ class Team():
     def stats(self):
         '''Print team statistics'''
         for hero in self.heroes:
-            kd = hero.kills / hero.deaths
-            print("{} Kill/Deaths: {}".format(
+            deaths = hero.deaths
+            if deaths == 0:
+                deaths = 1
+            kd = hero.kills / deaths
+            print("{} Kill/Deaths: {} ".format(
                 hero.name,kd
             ))
     
