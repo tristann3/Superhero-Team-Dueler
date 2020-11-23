@@ -3,6 +3,7 @@ from ability import Ability
 from weapon import Weapon
 from armor import Armor
 
+
 class Hero:
 
     def __init__ (self, name, starting_health=100):
@@ -11,6 +12,9 @@ class Hero:
         self.name = name
         self.starting_health = starting_health
         self.current_health = starting_health
+        self.deaths = 0
+        self.kills = 0
+
 
     def fight(self, opponent):
         '''currently chooses a random winner'''
@@ -26,8 +30,22 @@ class Hero:
         else:
             if self.is_alive():
                 print(f"{self.name} Won!")
+                self.add_kill(1)
+                opponent.add_death(1)
+                return 1
             else:
                 print(f"{opponent.name} Won!")
+                opponent.add_kill(1)
+                self.add_death(1)
+                return 0
+        
+    def add_kill(self, num_kills):
+        ''''Update self.kills by num_kills amount'''
+        self.kills += num_kills
+    
+    def add_death(self, num_deaths):
+        ''''Update self.deaths by num_deaths amount'''
+        self.deaths += num_deaths
             
     def add_ability(self, ability):
         '''Add ability to abilities list'''
